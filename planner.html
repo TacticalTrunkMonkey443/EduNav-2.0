@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semester Planner | EduNav 2.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <h1>EduNav 2.0</h1>
+        <span>Student Course Planner</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="#">My Degree</a>
+        <a href="planner.html">Planner</a>
+        <a href="#">Courses</a>
+    </nav>
+
+</header>
+
+<main class="dashboard">
+
+    <section class="welcome">
+        <p>SEMESTER PLANNER</p>
+        <h2>Plan Your Next Semester</h2>
+        <span>Build your schedule while staying on track with your degree.</span>
+    </section>
+
+    <section class="semester-card">
+
+        <div class="semester-header">
+            <div>
+                <h2>Spring 2027</h2>
+                <p>Planned Courses</p>
+            </div>
+
+            <div class="semester-credits">
+                <strong>9</strong>
+                <span>Credit Hours</span>
+            </div>
+        </div>
+
+        <div class="planned-course">
+            <div>
+                <h3>COSC 3318</h3>
+                <p>Database Management</p>
+            </div>
+            <span>3 Credits</span>
+        </div>
+
+        <div class="planned-course">
+            <div>
+                <h3>COSC 4319</h3>
+                <p>Software Engineering</p>
+            </div>
+            <span>3 Credits</span>
+        </div>
+
+        <div class="planned-course">
+            <div>
+                <h3>COSC 3327</h3>
+                <p>Computer Architecture</p>
+            </div>
+            <span>3 Credits</span>
+        </div>
+
+        <button class="add-course-button" id="addCourseButton">
+            + Add Course
+            <div class="course-selector" id="courseSelector">
+
+    <h3>Add a Course</h3>
+    <p>Select an available course to add to your semester.</p>
+
+    <select id="courseSelect">
+        <option value="">Choose a course...</option>
+        <option value="COSC 2347">COSC 2347 - Special Topics</option>
+        <option value="COSC 3321">COSC 3321 - Data Structures</option>
+        <option value="COSC 4349">COSC 4349 - Professionalism and Ethics</option>
+    </select>
+
+    <button id="confirmCourseButton">
+        Add to Semester
+    </button>
+
+</div>
+        </button>
+
+    </section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
