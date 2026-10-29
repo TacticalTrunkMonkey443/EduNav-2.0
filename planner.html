@@ -1,98 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Semester Planner | EduNav 2.0</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="navbar">
+    <!-- NAVIGATION BAR -->
 
-    <div class="logo">
-        <h1>EduNav 2.0</h1>
-        <span>Student Course Planner</span>
-    </div>
+    <header class="navbar">
 
-    <nav>
-        <a href="index.html">Dashboard</a>
-        <a href="#">My Degree</a>
-        <a href="planner.html">Planner</a>
-        <a href="#">Courses</a>
-    </nav>
-
-</header>
-
-<main class="dashboard">
-
-    <section class="welcome">
-        <p>SEMESTER PLANNER</p>
-        <h2>Plan Your Next Semester</h2>
-        <span>Build your schedule while staying on track with your degree.</span>
-    </section>
-
-    <section class="semester-card">
-
-        <div class="semester-header">
-            <div>
-                <h2>Spring 2027</h2>
-                <p>Planned Courses</p>
-            </div>
-
-            <div class="semester-credits">
-                <strong>9</strong>
-                <span>Credit Hours</span>
-            </div>
+        <div class="logo">
+            <h1>EduNav 2.0</h1>
+            <span>Student Course Planner</span>
         </div>
 
-        <div class="planned-course">
-            <div>
-                <h3>COSC 3318</h3>
-                <p>Database Management</p>
-            </div>
-            <span>3 Credits</span>
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a href="degree.html">My Degree</a>
+            <a href="planner.html">Planner</a>
+            <a href="courses.html">Courses</a>
+        </nav>
+
+    </header>
+
+
+    <!-- MAIN PLANNER -->
+
+    <main class="dashboard">
+
+        <section class="welcome">
+
+            <p>SEMESTER PLANNER</p>
+
+            <h2>Plan Your Next Semester</h2>
+
+            <span>
+                Build your schedule while staying on track with your degree.
+            </span>
+
+        </section>
+
+
+        <!-- PLANNER ACTIONS -->
+
+        <div class="planner-actions">
+
+            <button id="addSemesterButton">
+                + Add Semester
+            </button>
+
+            <button id="resetPlannerButton" class="reset-button">
+                Reset Planner
+            </button>
+
         </div>
 
-        <div class="planned-course">
-            <div>
-                <h3>COSC 4319</h3>
-                <p>Software Engineering</p>
-            </div>
-            <span>3 Credits</span>
-        </div>
 
-        <div class="planned-course">
-            <div>
-                <h3>COSC 3327</h3>
-                <p>Computer Architecture</p>
-            </div>
-            <span>3 Credits</span>
-        </div>
+        <!-- SEMESTERS APPEAR HERE -->
+         <!-- ADD SEMESTER FORM -->
 
-        <button class="add-course-button" id="addCourseButton">
-            + Add Course
-            <div class="course-selector" id="courseSelector">
+<div class="add-semester-form" id="addSemesterForm">
 
-    <h3>Add a Course</h3>
-    <p>Select an available course to add to your semester.</p>
+    <h3>Create New Semester</h3>
 
-    <select id="courseSelect">
-        <option value="">Choose a course...</option>
-        <option value="COSC 2347">COSC 2347 - Special Topics</option>
-        <option value="COSC 3321">COSC 3321 - Data Structures</option>
-        <option value="COSC 4349">COSC 4349 - Professionalism and Ethics</option>
+    <label for="semesterTerm">Semester</label>
+
+    <select id="semesterTerm">
+        <option value="Spring">Spring</option>
+        <option value="Summer">Summer</option>
+        <option value="Fall">Fall</option>
     </select>
 
-    <button id="confirmCourseButton">
-        Add to Semester
-    </button>
+    <label for="semesterYear">Year</label>
+
+    <input
+        type="number"
+        id="semesterYear"
+        value="2027"
+        min="2026"
+        max="2040"
+    >
+
+    <div class="semester-form-buttons">
+        <button id="createSemesterButton">Create Semester</button>
+        <button id="cancelSemesterButton">Cancel</button>
+    </div>
 
 </div>
-        </button>
 
-    </section>
+        <div id="semesterContainer"></div>
 
-</main>
+
+        <!-- ADD COURSE MODAL -->
+
+        <div class="modal-overlay" id="courseModal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h2>Add a Course</h2>
+
+                    <button id="closeModalButton" class="close-modal">
+                        &times;
+                    </button>
+
+                </div>
+
+                <p>Select a course to add to your semester.</p>
+
+                <label for="courseSelect">Available Courses</label>
+
+                <select id="courseSelect">
+                    <option value="">Choose a course...</option>
+                </select>
+
+                <div class="modal-actions">
+
+                    <button id="cancelCourseButton" class="cancel-button">
+                        Cancel
+                    </button>
+
+                    <button id="confirmCourseButton" class="confirm-button">
+                        Add to Semester
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="student-data.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>

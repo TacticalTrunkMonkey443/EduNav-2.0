@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduNav 2.0</title>
     <link rel="stylesheet" href="style.css">
-<head>
+</head>
+
 <body>
+
 <header class="navbar">
 
     <div class="logo">
@@ -13,14 +18,17 @@
     </div>
 
     <nav>
-        <a href="#">Dashboard</a>
-        <a href="#">My Degree</a>
+        <a href="index.html">Dashboard</a>
+        <a href="degree.html">My Degree</a>
         <a href="planner.html">Planner</a>
-        <a href="#">Courses</a>
+        <a href="courses.html">Courses</a>
     </nav>
 
 </header>
+
 <main class="dashboard">
+
+    <!-- WELCOME SECTION -->
 
     <section class="welcome">
         <p>STUDENT DASHBOARD</p>
@@ -28,72 +36,116 @@
         <span>Sam Houston State University</span>
     </section>
 
+
+    <!-- DEGREE PROGRESS -->
+
     <section class="progress-card">
 
         <div class="progress-header">
+
             <div>
                 <h3>Degree Progress</h3>
                 <p>Your progress toward graduation</p>
             </div>
 
-            <h2>68%</h2>
+            <h2 id="dashboardProgressPercent">68%</h2>
+
         </div>
 
         <div class="progress-bar">
-            <div class="progress-fill"></div>
+
+            <div
+                class="progress-fill"
+                id="dashboardProgressFill"
+                style="width: 68%;">
+            </div>
+
         </div>
 
         <div class="credit-info">
-            <strong>82</strong> of 120 credit hours completed
+
+            <strong id="dashboardCompletedCredits">82</strong>
+            of
+            <strong id="dashboardRequiredCredits">120</strong>
+            credit hours completed
+
         </div>
 
     </section>
+
+
+    <!-- DEGREE REQUIREMENTS -->
+
     <section class="requirements">
 
-    <div class="section-title">
-        <h2>Degree Requirements</h2>
-        <p>Track your courses and degree completion</p>
-    </div>
-
-    <div class="course-list">
-
-        <div class="course completed">
-            <div>
-                <h3>COSC 1436</h3>
-                <p>Programming Fundamentals I</p>
-            </div>
-            <span>Completed</span>
+        <div class="section-title">
+            <h2>Degree Requirements</h2>
+            <p>Track your courses and degree completion</p>
         </div>
 
-        <div class="course completed">
-            <div>
-                <h3>COSC 1437</h3>
-                <p>Programming Fundamentals II</p>
+        <div class="course-list">
+
+            <div class="course completed">
+
+                <div>
+                    <h3>COSC 1436</h3>
+                    <p>Programming Fundamentals I</p>
+                </div>
+
+                <span>Completed</span>
+
             </div>
-            <span>Completed</span>
+
+
+            <div class="course completed">
+
+                <div>
+                    <h3>COSC 1437</h3>
+                    <p>Programming Fundamentals II</p>
+                </div>
+
+                <span>Completed</span>
+
+            </div>
+
+
+            <div class="course in-progress">
+
+                <div>
+                    <h3>COSC 3318</h3>
+                    <p>Database Management</p>
+                </div>
+
+                <span>In Progress</span>
+
+            </div>
+
+
+            <div class="course remaining">
+
+                <div>
+                    <h3>COSC 4319</h3>
+                    <p>Software Engineering</p>
+                </div>
+
+                <span>Remaining</span>
+
+            </div>
+
         </div>
 
-        <div class="course in-progress">
-            <div>
-                <h3>COSC 3318</h3>
-                <p>Database Management</p>
-            </div>
-            <span>In Progress</span>
-        </div>
-
-        <div class="course remaining">
-            <div>
-                <h3>COSC 4319</h3>
-                <p>Software Engineering</p>
-            </div>
-            <span>Remaining</span>
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 </main>
+
+
+<!-- SHARED STUDENT DATA -->
+
+<script src="student-data.js"></script>
+
+<!-- DASHBOARD FUNCTIONALITY -->
+
+<script src="dashboard.js"></script>
 
 </body>
 </html>
