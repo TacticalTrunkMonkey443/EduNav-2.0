@@ -1,151 +1,240 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>EduNav 2.0</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ======================================
+           DASHBOARD GPA ADDITIONS
+        ====================================== */
+
+        .dashboard-gpa-section {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+            gap: 16px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-gpa-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eeeeee;
+        }
+
+        .dashboard-gpa-card h3 {
+            margin: 0 0 10px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .dashboard-gpa-card h2 {
+            margin: 0;
+            font-size: 30px;
+            color: #f58220;
+        }
+
+        .dashboard-gpa-card p {
+            margin: 10px 0 0;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .dashboard-gpa-note {
+            margin: 0 0 25px;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="navbar">
+    <!-- NAVIGATION -->
 
-    <div class="logo">
-        <h1>EduNav 2.0</h1>
-        <span>Student Course Planner</span>
-    </div>
+    <header class="navbar">
 
-    <nav>
-        <a href="index.html">Dashboard</a>
-        <a href="degree.html">My Degree</a>
-        <a href="planner.html">Planner</a>
-        <a href="courses.html">Courses</a>
-    </nav>
-
-</header>
-
-<main class="dashboard">
-
-    <!-- WELCOME SECTION -->
-
-    <section class="welcome">
-        <p>STUDENT DASHBOARD</p>
-        <h2>Computer Science B.S.</h2>
-        <span>Sam Houston State University</span>
-    </section>
-
-
-    <!-- DEGREE PROGRESS -->
-
-    <section class="progress-card">
-
-        <div class="progress-header">
-
-            <div>
-                <h3>Degree Progress</h3>
-                <p>Your progress toward graduation</p>
-            </div>
-
-            <h2 id="dashboardProgressPercent">68%</h2>
-
+        <div class="logo">
+            <h1>EduNav 2.0</h1>
+            <span>Student Course Planner</span>
         </div>
 
-        <div class="progress-bar">
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a href="degree.html">My Degree</a>
+            <a href="planner.html">Planner</a>
+            <a href="courses.html">Courses</a>
+        </nav>
 
-            <div
-                class="progress-fill"
-                id="dashboardProgressFill"
-                style="width: 68%;">
-            </div>
+    </header>
 
-        </div>
+    <main class="dashboard">
 
-        <div class="credit-info">
+        <!-- WELCOME SECTION -->
 
-            <strong id="dashboardCompletedCredits">82</strong>
-            of
-            <strong id="dashboardRequiredCredits">120</strong>
-            credit hours completed
+        <section class="welcome">
+            <p>STUDENT DASHBOARD</p>
+            <h2>Computer Science B.S.</h2>
+            <span>Sam Houston State University</span>
+        </section>
 
-        </div>
+        <!-- DEGREE PROGRESS -->
 
-    </section>
+        <section class="progress-card">
 
-
-    <!-- DEGREE REQUIREMENTS -->
-
-    <section class="requirements">
-
-        <div class="section-title">
-            <h2>Degree Requirements</h2>
-            <p>Track your courses and degree completion</p>
-        </div>
-
-        <div class="course-list">
-
-            <div class="course completed">
+            <div class="progress-header">
 
                 <div>
-                    <h3>COSC 1436</h3>
-                    <p>Programming Fundamentals I</p>
+                    <h3>Degree Progress</h3>
+                    <p>Your progress toward graduation</p>
                 </div>
 
-                <span>Completed</span>
+                <h2 id="dashboardProgressPercent">0%</h2>
 
             </div>
 
+            <div class="progress-bar">
 
-            <div class="course completed">
-
-                <div>
-                    <h3>COSC 1437</h3>
-                    <p>Programming Fundamentals II</p>
+                <div
+                    class="progress-fill"
+                    id="dashboardProgressFill"
+                    style="width: 0%;">
                 </div>
-
-                <span>Completed</span>
 
             </div>
 
+            <div class="credit-info">
 
-            <div class="course in-progress">
-
-                <div>
-                    <h3>COSC 3318</h3>
-                    <p>Database Management</p>
-                </div>
-
-                <span>In Progress</span>
+                <strong id="dashboardCompletedCredits">0</strong>
+                of
+                <strong id="dashboardRequiredCredits">120</strong>
+                credit hours completed
 
             </div>
 
+        </section>
 
-            <div class="course remaining">
+        <!-- GPA OVERVIEW -->
 
-                <div>
-                    <h3>COSC 4319</h3>
-                    <p>Software Engineering</p>
-                </div>
+        <section class="dashboard-gpa-section">
 
-                <span>Remaining</span>
+            <div class="dashboard-gpa-card">
+
+                <h3>Cumulative GPA</h3>
+
+                <h2 id="dashboardGPA">—</h2>
+
+                <p>Based on completed graded courses</p>
 
             </div>
 
-        </div>
+            <div class="dashboard-gpa-card">
 
-    </section>
+                <h3>Graded Credit Hours</h3>
 
-</main>
+                <h2 id="dashboardGradedCredits">0</h2>
 
+                <p>Credits included in GPA</p>
 
-<!-- SHARED STUDENT DATA -->
+            </div>
 
-<script src="student-data.js"></script>
+            <div class="dashboard-gpa-card">
 
-<!-- DASHBOARD FUNCTIONALITY -->
+                <h3>Quality Points</h3>
 
-<script src="dashboard.js"></script>
+                <h2 id="dashboardQualityPoints">0.00</h2>
+
+                <p>Grade points × credit hours</p>
+
+            </div>
+
+        </section>
+
+        <p class="dashboard-gpa-note">
+            GPA is calculated from grades entered in
+            My Degree. Courses without grades are excluded.
+        </p>
+
+        <!-- DEGREE REQUIREMENTS -->
+
+        <section class="requirements">
+
+            <div class="section-title">
+                <h2>Degree Requirements</h2>
+                <p>Track your courses and degree completion</p>
+            </div>
+
+            <div class="course-list">
+
+                <div class="course completed">
+
+                    <div>
+                        <h3>COSC 1436</h3>
+                        <p>Programming Fundamentals I</p>
+                    </div>
+
+                    <span>Completed</span>
+
+                </div>
+
+                <div class="course completed">
+
+                    <div>
+                        <h3>COSC 1437</h3>
+                        <p>Programming Fundamentals II</p>
+                    </div>
+
+                    <span>Completed</span>
+
+                </div>
+
+                <div class="course in-progress">
+
+                    <div>
+                        <h3>COSC 3318</h3>
+                        <p>Database Management</p>
+                    </div>
+
+                    <span>In Progress</span>
+
+                </div>
+
+                <div class="course remaining">
+
+                    <div>
+                        <h3>COSC 4319</h3>
+                        <p>Software Engineering</p>
+                    </div>
+
+                    <span>Remaining</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- SHARED STUDENT DATA -->
+
+    <script src="student-data.js"></script>
+
+    <!-- DASHBOARD FUNCTIONALITY -->
+
+    <script src="dashboard.js"></script>
 
 </body>
 </html>
