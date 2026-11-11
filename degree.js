@@ -1,7 +1,9 @@
+
+"use strict";
+
 // ==========================================
 // EDUNAV 2.0 - MY DEGREE
 // ==========================================
-
 
 // ==========================================
 // SAMPLE DEGREE PROGRAM
@@ -20,7 +22,6 @@ const degreePrograms = {
         requiredCredits: 120,
 
         courses: [
-
             {
                 code: "COSC 1436",
                 name: "Programming Fundamentals I",
@@ -28,7 +29,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "Completed"
             },
-
             {
                 code: "COSC 1437",
                 name: "Programming Fundamentals II",
@@ -36,7 +36,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "Completed"
             },
-
             {
                 code: "COSC 3318",
                 name: "Database Management",
@@ -44,7 +43,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "In Progress"
             },
-
             {
                 code: "COSC 4319",
                 name: "Software Engineering",
@@ -52,7 +50,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "Not Started"
             },
-
             {
                 code: "COSC 3327",
                 name: "Computer Architecture",
@@ -60,7 +57,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "Not Started"
             },
-
             {
                 code: "COSC 3321",
                 name: "Data Structures",
@@ -68,7 +64,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "Not Started"
             },
-
             {
                 code: "COSC 4349",
                 name: "Professionalism and Ethics",
@@ -76,7 +71,6 @@ const degreePrograms = {
                 category: "Computer Science Core",
                 status: "Not Started"
             },
-
             {
                 code: "MATH 1420",
                 name: "Calculus I",
@@ -84,7 +78,6 @@ const degreePrograms = {
                 category: "Mathematics",
                 status: "Completed"
             },
-
             {
                 code: "MATH 1430",
                 name: "Calculus II",
@@ -92,7 +85,6 @@ const degreePrograms = {
                 category: "Mathematics",
                 status: "Not Started"
             },
-
             {
                 code: "ENGL 1301",
                 name: "Composition I",
@@ -100,7 +92,6 @@ const degreePrograms = {
                 category: "General Education",
                 status: "Completed"
             },
-
             {
                 code: "ENGL 1302",
                 name: "Composition II",
@@ -108,7 +99,6 @@ const degreePrograms = {
                 category: "General Education",
                 status: "Not Started"
             },
-
             {
                 code: "HIST 1301",
                 name: "United States History I",
@@ -116,7 +106,6 @@ const degreePrograms = {
                 category: "General Education",
                 status: "Completed"
             },
-
             {
                 code: "HIST 1302",
                 name: "United States History II",
@@ -124,7 +113,6 @@ const degreePrograms = {
                 category: "General Education",
                 status: "Not Started"
             },
-
             {
                 code: "GOVT 2305",
                 name: "Federal Government",
@@ -132,7 +120,6 @@ const degreePrograms = {
                 category: "General Education",
                 status: "Completed"
             },
-
             {
                 code: "GOVT 2306",
                 name: "Texas Government",
@@ -140,49 +127,18 @@ const degreePrograms = {
                 category: "General Education",
                 status: "Not Started"
             }
-
         ]
-
     }
-
 };
 
-
 // ==========================================
-// LOCAL STORAGE
+// STATE
 // ==========================================
-
-const DEGREE_STORAGE_KEY = "edunavDegreeProgress";
 
 let currentDegree = "computerScience";
 
-let degreeStatuses = {};
-
-
-// Load previously saved statuses
-
-try {
-
-    const savedStatuses = localStorage.getItem(DEGREE_STORAGE_KEY);
-
-    degreeStatuses = savedStatuses
-        ? JSON.parse(savedStatuses)
-        : {};
-
-    if (
-        typeof degreeStatuses !== "object" ||
-        degreeStatuses === null ||
-        Array.isArray(degreeStatuses)
-    ) {
-        degreeStatuses = {};
-    }
-
-} catch (error) {
-
-    degreeStatuses = {};
-
-}
-
+// Retain existing status overrides.
+let degreeStatuses = EduNavData.getDegreeStatuses();
 
 // ==========================================
 // PAGE ELEMENTS
@@ -248,79 +204,72 @@ const summaryRemainingCredits =
 const summaryRemainingCourses =
     document.getElementById("summaryRemainingCourses");
 
+// New GPA display elements.
+const degreeGPA =
+    document.getElementById("degreeGPA");
+
+const degreeGPACredits =
+    document.getElementById("degreeGPACredits");
+
+const degreeQualityPoints =
+    document.getElementById("degreeQualityPoints");
+
+const summaryGPA =
+    document.getElementById("summaryGPA");
+
+const summaryGPADescription =
+    document.getElementById("summaryGPADescription");
 
 // ==========================================
 // GET ACTIVE DEGREE
 // ==========================================
 
 function getActiveDegree() {
-
     return degreePrograms[currentDegree];
-
 }
-
 
 // ==========================================
 // GET COURSE STATUS
 // ==========================================
 
 function getCourseStatus(course) {
-
     return EduNavData.getCourseStatus(
         course.code,
         course.status
     );
-
 }
-
 
 // ==========================================
 // SAVE COURSE STATUSES
 // ==========================================
 
 function saveDegreeProgress() {
-
     EduNavData.saveDegreeStatuses(degreeStatuses);
-
 }
-
 
 // ==========================================
 // CALCULATE DEGREE PROGRESS
 // ==========================================
 
 function calculateDegreeProgress() {
-
     const degree = getActiveDegree();
 
     let completedCredits = 0;
-
     let completedCount = 0;
     let inProgressCount = 0;
     let remainingCount = 0;
 
     degree.courses.forEach(course => {
-
         const status = getCourseStatus(course);
 
         if (status === "Completed") {
-
             completedCredits += course.credits;
-
             completedCount++;
-
-        }
-        else if (status === "In Progress") {
-
+        } else if (status === "In Progress") {
             inProgressCount++;
-
-        }
-        else {
-
+        } else {
             remainingCount++;
-
         }
-
     });
 
     const remainingCredits = Math.max(
@@ -328,12 +277,14 @@ function calculateDegreeProgress() {
         0
     );
 
-    const progressPercent = Math.min(
-        Math.round(
-            (completedCredits / degree.requiredCredits) * 100
-        ),
-        100
-    );
+    const progressPercent = degree.requiredCredits > 0
+        ? Math.min(
+            Math.round(
+                (completedCredits / degree.requiredCredits) * 100
+            ),
+            100
+        )
+        : 0;
 
     return {
         completedCredits,
@@ -343,18 +294,14 @@ function calculateDegreeProgress() {
         inProgressCount,
         remainingCount
     };
-
 }
 
-
 // ==========================================
-// UPDATE OVERVIEW
+// UPDATE DEGREE OVERVIEW
 // ==========================================
 
 function updateDegreeOverview() {
-
     const degree = getActiveDegree();
-
     const progress = calculateDegreeProgress();
 
     degreeProgramName.textContent = degree.name;
@@ -391,43 +338,70 @@ function updateDegreeOverview() {
 
     summaryRemainingCourses.textContent =
         progress.remainingCount;
-
 }
 
+// ==========================================
+// UPDATE GPA OVERVIEW
+// ==========================================
+
+function updateGPAOverview() {
+    const degree = getActiveDegree();
+
+    const result = EduNavData.calculateGPA(
+        degree.courses
+    );
+
+    const formattedGPA = result.gpa === null
+        ? "—"
+        : result.gpa.toFixed(2);
+
+    degreeGPA.textContent = formattedGPA;
+
+    degreeGPACredits.textContent =
+        result.gradedCredits;
+
+    degreeQualityPoints.textContent =
+        result.qualityPoints.toFixed(2);
+
+    summaryGPA.textContent = formattedGPA;
+
+    if (result.gradedCourses === 0) {
+        summaryGPADescription.textContent =
+            "Enter grades for completed courses to calculate your GPA.";
+    } else {
+        summaryGPADescription.textContent =
+            `Calculated from ${result.gradedCourses} graded ` +
+            `course${result.gradedCourses === 1 ? "" : "s"} ` +
+            `and ${result.gradedCredits} credit hours.`;
+    }
+}
 
 // ==========================================
 // CREATE STATUS BADGE
 // ==========================================
 
 function createDegreeStatusBadge(status) {
-
     const badge = document.createElement("span");
 
     badge.className = "degree-status-badge";
 
     if (status === "Completed") {
         badge.classList.add("degree-completed");
-    }
-    else if (status === "In Progress") {
+    } else if (status === "In Progress") {
         badge.classList.add("degree-in-progress");
-    }
-    else {
+    } else {
         badge.classList.add("degree-not-started");
     }
 
     badge.textContent = status;
-
     return badge;
-
 }
-
 
 // ==========================================
 // POPULATE CATEGORY FILTER
 // ==========================================
 
 function populateDegreeCategories() {
-
     degreeCategoryFilter.innerHTML =
         '<option value="all">All Categories</option>';
 
@@ -440,25 +414,20 @@ function populateDegreeCategories() {
     ].sort();
 
     categories.forEach(category => {
-
         const option = document.createElement("option");
 
         option.value = category;
         option.textContent = category;
 
         degreeCategoryFilter.appendChild(option);
-
     });
-
 }
-
 
 // ==========================================
 // FILTER REQUIREMENTS
 // ==========================================
 
 function getFilteredRequirements() {
-
     const degree = getActiveDegree();
 
     const searchText =
@@ -471,7 +440,6 @@ function getFilteredRequirements() {
         degreeStatusFilter.value;
 
     return degree.courses.filter(course => {
-
         const matchesSearch =
             course.code.toLowerCase().includes(searchText) ||
             course.name.toLowerCase().includes(searchText);
@@ -489,18 +457,79 @@ function getFilteredRequirements() {
             matchesCategory &&
             matchesStatus
         );
-
     });
-
 }
 
+// ==========================================
+// CREATE GRADE SELECTOR
+// ==========================================
+
+function createGradeSelector(course, status) {
+    const container = document.createElement("div");
+    container.className = "degree-grade-control";
+
+    const label = document.createElement("label");
+    label.textContent = "Letter Grade";
+
+    const gradeSelect = document.createElement("select");
+    gradeSelect.className = "degree-grade-select";
+
+    const gradeOptions = [
+        { value: "", label: "No Grade" },
+        { value: "A", label: "A (4.0)" },
+        { value: "B", label: "B (3.0)" },
+        { value: "C", label: "C (2.0)" },
+        { value: "D", label: "D (1.0)" },
+        { value: "F", label: "F (0.0)" }
+    ];
+
+    gradeOptions.forEach(gradeOption => {
+        const option = document.createElement("option");
+
+        option.value = gradeOption.value;
+        option.textContent = gradeOption.label;
+
+        gradeSelect.appendChild(option);
+    });
+
+    gradeSelect.value =
+        EduNavData.getCourseGrade(course.code);
+
+    // Only completed courses can receive a GPA grade.
+    gradeSelect.disabled = status !== "Completed";
+
+    if (gradeSelect.disabled) {
+        gradeSelect.title =
+            "Mark this course Completed to enter a grade.";
+    }
+
+    const labelId = "grade-" +
+        course.code.replace(/[^a-zA-Z0-9]/g, "-");
+
+    gradeSelect.id = labelId;
+    label.htmlFor = labelId;
+
+    gradeSelect.addEventListener("change", function () {
+        EduNavData.updateCourseGrade(
+            course.code,
+            gradeSelect.value
+        );
+
+        // Recalculate without changing filters or scroll.
+        updateGPAOverview();
+    });
+
+    container.appendChild(label);
+    container.appendChild(gradeSelect);
+
+    return container;
+}
 
 // ==========================================
 // DISPLAY REQUIREMENTS
 // ==========================================
 
 function renderDegreeRequirements() {
-
     const filteredCourses = getFilteredRequirements();
 
     degreeRequirementsList.innerHTML = "";
@@ -514,9 +543,7 @@ function renderDegreeRequirements() {
         filteredCourses.length !== 0;
 
     filteredCourses.forEach(course => {
-
         const courseCard = document.createElement("article");
-
         courseCard.className = "degree-requirement-card";
 
         const courseInfo = document.createElement("div");
@@ -543,24 +570,24 @@ function renderDegreeRequirements() {
         credits.textContent = `${course.credits} Credits`;
 
         const status = getCourseStatus(course);
-
         const badge = createDegreeStatusBadge(status);
 
+        // Existing completion status selector.
         const statusSelect = document.createElement("select");
         statusSelect.className = "degree-status-select";
 
-        ["Not Started", "In Progress", "Completed"].forEach(
-            statusOption => {
+        [
+            "Not Started",
+            "In Progress",
+            "Completed"
+        ].forEach(statusOption => {
+            const option = document.createElement("option");
 
-                const option = document.createElement("option");
+            option.value = statusOption;
+            option.textContent = statusOption;
 
-                option.value = statusOption;
-                option.textContent = statusOption;
-
-                statusSelect.appendChild(option);
-
-            }
-        );
+            statusSelect.appendChild(option);
+        });
 
         statusSelect.value = status;
 
@@ -570,67 +597,59 @@ function renderDegreeRequirements() {
         );
 
         statusSelect.addEventListener("change", function () {
-
             degreeStatuses[course.code] = statusSelect.value;
 
-EduNavData.updateCourseStatus(
-    course.code,
-    statusSelect.value
-);
-
+            // Shared status storage updates other pages.
             saveDegreeProgress();
 
+            // GPA will automatically exclude a course
+            // if it is no longer marked Completed.
             renderDegreePage();
-
         });
+
+        // New GPA grade selector.
+        const gradeSelector =
+            createGradeSelector(course, status);
 
         courseActions.appendChild(credits);
         courseActions.appendChild(badge);
         courseActions.appendChild(statusSelect);
+        courseActions.appendChild(gradeSelector);
 
         courseCard.appendChild(courseInfo);
         courseCard.appendChild(courseActions);
 
         degreeRequirementsList.appendChild(courseCard);
-
     });
-
 }
-
 
 // ==========================================
 // RENDER ENTIRE DEGREE PAGE
 // ==========================================
 
 function renderDegreePage() {
-
     updateDegreeOverview();
-
+    updateGPAOverview();
     renderDegreeRequirements();
-
 }
-
 
 // ==========================================
 // RESET DEGREE PROGRESS
 // ==========================================
 
 function resetDegreeProgress() {
-
     const confirmed = confirm(
-        "Reset all course statuses to the demonstration defaults?"
+        "Reset course statuses to their demonstration defaults? " +
+        "Saved letter grades will be preserved."
     );
 
     if (!confirmed) return;
 
     degreeStatuses = {};
-
     saveDegreeProgress();
 
     renderDegreePage();
-
 }
-
 
 // ==========================================
 // EVENT LISTENERS
@@ -652,13 +671,10 @@ degreeStatusFilter.addEventListener(
 );
 
 degreeSelect.addEventListener("change", function () {
-
     currentDegree = degreeSelect.value;
 
     populateDegreeCategories();
-
     renderDegreePage();
-
 });
 
 resetDegreeButton.addEventListener(
@@ -666,11 +682,9 @@ resetDegreeButton.addEventListener(
     resetDegreeProgress
 );
 
-
 // ==========================================
 // START DEGREE TRACKER
 // ==========================================
 
 populateDegreeCategories();
-
 renderDegreePage();
